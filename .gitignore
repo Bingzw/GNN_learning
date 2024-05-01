@@ -161,4 +161,5 @@ cython_debug/
 .DS_Store
 share/
 bin/
+save_model/
 pyvenv.cfg

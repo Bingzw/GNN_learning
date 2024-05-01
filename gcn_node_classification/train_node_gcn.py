@@ -4,6 +4,7 @@ import torch.nn as nn
 from tqdm import tqdm
 from gcn_node_classification.node_gcn import NodeGCN
 from torch_geometric.datasets import Planetoid
+from torch_geometric.transforms import NormalizeFeatures
 
 
 def train_and_validate(data, model, optimizer, num_epochs):
@@ -29,7 +30,7 @@ if __name__ == "__main__":
     current_directory = os.getcwd()
     parent_directory = os.path.dirname(current_directory)
     download_path = os.path.join(parent_directory, 'data')
-    dataset = Planetoid(root=download_path, name='Cora')
+    dataset = Planetoid(root=download_path, name='Cora', transform=NormalizeFeatures())
     print(dataset[0])
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -38,9 +39,9 @@ if __name__ == "__main__":
     num_classes = dataset.num_classes
 
     learning_rate = [0.01, 0.001, 1e-4]
-    weight_decay = [5e-4, 5e-5, 5e-6]
-    gcn_dim = [[16, 8], [8, 4], [16], [8]]
-    dropout = [0.4, 0.5, 0.6]
+    weight_decay = [1e-4, 1e-5, 1e-6]
+    gcn_dim = [[32], [16], [8]]
+    dropout = [0.3, 0.5, 0.7]
     num_epochs = 200
 
     best_hyperparameters = {"best_model": None,
