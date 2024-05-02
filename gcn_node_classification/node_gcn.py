@@ -15,18 +15,20 @@ class NodeGCN(torch.nn.Module):
         """
         super().__init__()
         torch.manual_seed(42)
-        gcn_layers = [GCNConv(in_features, gcn_dim[0])]
-        # away information, so we need multiple layers to aggregate multi-steps information
+        gcn_layers = [GCNConv(in_features, gcn_dim[0])]  # note that one gcn_layer only calculate the info of 1 hop away
+        # so we need multiple layers to aggregate k-hops away info
         for i in range(1, len(gcn_dim)):
             gcn_layers.append(GCNConv(gcn_dim[i - 1], gcn_dim[i]))
         gcn_layers.append(GCNConv(gcn_dim[-1], num_classes))
         self.gcn_layers = nn.ModuleList(gcn_layers)
+        self.dropout_layer = nn.Dropout(dropout)
+        self.relu_layer = nn.ReLU()
 
     def forward(self, data):
         x, edge_index = data.x, data.edge_index
         for i in range(len(self.gcn_layers) - 1):
             x = self.gcn_layers[i](x, edge_index)
-            x = torch.relu(x)
-            x = torch.dropout(x, p=0.5, train=self.training)
+            x = self.relu_layer(x)
+            x = self.dropout_layer(x)
         x = self.gcn_layers[-1](x, edge_index)
         return x

@@ -8,6 +8,9 @@ from torch_geometric.transforms import NormalizeFeatures
 
 
 def train_and_validate(data, model, optimizer, num_epochs):
+    # In GNN, one graph is considered as a data point when doing batch stochastic gradient, since all nodes in the graph
+    # somehow connected. However the dataset only contains one graph, so we don't need to worry about the batch in this
+    # case.
     model.train()
     criterion = nn.CrossEntropyLoss()
     for epoch in tqdm(range(num_epochs)):
@@ -80,7 +83,7 @@ if __name__ == "__main__":
     # Save the best model
     save_dir = os.path.join(parent_directory, 'save_model/nodegcn')
     os.makedirs(save_dir, exist_ok=True)
-    torch.save(best_model.state_dict(), os.path.join(save_dir, 'best_model.pt'))
+    torch.save(best_model.state_dict(), os.path.join(save_dir, 'node_gcn_best_model.pt'))
 
 
 
