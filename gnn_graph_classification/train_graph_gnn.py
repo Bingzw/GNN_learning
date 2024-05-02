@@ -9,9 +9,10 @@ from torch_geometric.transforms import NormalizeFeatures
 
 
 def train_and_validate(train_loader, val_loader, model, optimizer, num_epochs):
-    model.train()
+
     criterion = nn.CrossEntropyLoss()
     for epoch in tqdm(range(num_epochs)):
+        model.train()
         for train_data in train_loader:
             optimizer.zero_grad()
             out = model(train_data)
