@@ -29,6 +29,7 @@ The PubMed dataset is a citation network where nodes represent scientific papers
 - data.train_mask, data.val_mask, and data.test_mask: These are Boolean tensors that indicate which nodes (papers) should be included in the training, validation, and test sets, respectively
 
 ## Model Introduction
+### Graph Convolutional Networks (GCNs)
 We are applying a two GCN layers network on the 'Cora' dataset. In particular, a GCNConv layer is a fundamental building block of Graph Convolutional Networks, a type of neural network
 designed to work directly with graphs. The key idea behind GCNs is to generate a node's new feature
 representation by aggregating the feature information from its neighboring nodes and itself.
@@ -39,8 +40,8 @@ This is based on the assumption that a node's features can be represented by the
 main component that GCNConv learns during training. This transformation is a linear operation
 (a matrix multiplication).
 Note that the GCNConv does not include any non-linear activation function (e.g., ReLU) after the transformation. Therefore we applied a ReLU activation function after the first GCNConv layer.
-
-The above node classification model is coded in node_gcn.py
-
-
-
+### Cluster-GCN
+One issue with the naive GCN mdoel is that it does not scale well to large graphs. To address this issue, we can use the Cluster-GCN model, which is a scalable version of the GCN model. 
+The key idea behind Cluster-GCN is to partition the graphs into clusters as if we are dealing with a mini-batch of graphs. We then apply the GCN model to each mini-batch of graphs. 
+This approach allows us to scale the GCN model to large graphs by processing smaller subgraphs at a time.
+Check this for more details: [link](https://colab.research.google.com/drive/1XAjcjRHrSR_ypCk_feIWFbcBKyT4Lirs?usp=sharing#scrollTo=zWn5yzT0LOzH)
