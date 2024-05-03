@@ -6,3 +6,4 @@ tqdm==4.66.4
 pyg-lib=0.4.0+pt22
 torch-scatter=2.1.2
 torch-sparse=0.6.18
+ray==2.20.0
