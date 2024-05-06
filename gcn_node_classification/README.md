@@ -52,3 +52,6 @@ GraphSage is a variant of the GCN model that uses a different aggregation strate
 - apply a linear transformation to the concatenated embeddings.
 - apply a non-linear activation function (e.g., ReLU) to the transformed embeddings.
 The GraphSage model is more flexible than the GCN model in terms of aggregation strategies and can capture more complex patterns in the graph structure.
+### Graph Attention Networks (GATs)
+Graph Attention Networks (GATs) are a variant of the GCN model that uses attention mechanisms to aggregate the features of a node's neighbors. The key idea behind GATs is to assign different attention weights to the neighbors of a node based on their relevance to the node. This allows the model to focus on the most relevant neighbors when aggregating features, which can improve the performance of the model.
+We implemented the graph attention layer in gat.py. However, users can also use the built-in GAT layer: GATConv in PyG library.

@@ -14,7 +14,7 @@ from torch_geometric.nn import (
 )
 
 
-class NodeGCN(torch.nn.Module):
+class NodeSage(torch.nn.Module):
     def __init__(self, in_features, num_classes, gcn_dim=[16], dropout=0.5, aggr='mean', aggr_kwargs=None):
         """
         graph convolutional network
